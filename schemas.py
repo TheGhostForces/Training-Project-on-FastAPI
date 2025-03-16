@@ -40,3 +40,6 @@ class TaskDelete(BaseModel):
 
 class UserDelete(BaseModel):
     username: int
+
+class FeedBackAnswer(BaseModel):
+    status: str = "sent"

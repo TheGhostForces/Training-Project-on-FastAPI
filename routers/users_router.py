@@ -1,11 +1,10 @@
-from typing import Annotated, Optional
+from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Security
+from fastapi import APIRouter, Depends, HTTPException
 
 from auth.security import get_current_user_from_token
-from models import UsersOrm
 from repository import UserRepository, verify_password, hash_password
-from schemas import UserSchemaAdd, Universal, ChangePassword, CurrentPassword, UniversalWithId
+from schemas import UserSchemaAdd, ChangePassword, CurrentPassword, UniversalWithId
 
 router = APIRouter(
     prefix="/user",

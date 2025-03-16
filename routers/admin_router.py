@@ -1,6 +1,5 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
-
 from auth.security import get_current_user_from_token, require_role
 from models import UsersOrm
 from repository import AdminRepository

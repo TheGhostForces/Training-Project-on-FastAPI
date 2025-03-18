@@ -1,6 +1,7 @@
 import settings
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-from schemas import FeedBackAnswer
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
+from auth.security import get_current_user_from_token
+from schemas import FeedBackAnswer, UserSchemaAdd
 
 router = APIRouter(
     prefix="/feedback",
@@ -8,7 +9,9 @@ router = APIRouter(
 )
 
 @router.post("/send")
-async def send_message(message: str) -> FeedBackAnswer:
+async def send_message(
+        message: str,
+        current_user: UserSchemaAdd = Depends(get_current_user_from_token)) -> FeedBackAnswer:
     try:
         await settings.r.publish("bot_channel", message)
         return {"status": "sent"}

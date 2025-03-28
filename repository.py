@@ -3,7 +3,7 @@ from sqlalchemy import select, update, delete
 import asyncio
 
 from database import new_session
-from models import TasksOrm, UsersOrm
+from models import TasksOrm, UsersOrm, MessageOrm
 from schemas import TaskSchemaAdd, UserSchemaAdd, TaskSchema
 
 
@@ -139,4 +139,17 @@ class AdminRepository:
                 .where(UsersOrm.username == user_username)
             )
             await session.execute(query)
+            await session.commit()
+
+
+class ChatRepository:
+    @classmethod
+    async def save_message(cls, text, id_user, receiver_username):
+        async with new_session() as session:
+            message = MessageOrm(
+                text=text,
+                id_user=id_user,
+                receiver_username=receiver_username
+            )
+            session.add(message)
             await session.commit()

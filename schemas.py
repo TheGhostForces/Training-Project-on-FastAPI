@@ -43,3 +43,8 @@ class UserDelete(BaseModel):
 
 class FeedBackAnswer(BaseModel):
     status: str = "sent"
+
+class SaveMessage(BaseModel):
+    text: str
+    id_user: int
+    receiver_username: str
